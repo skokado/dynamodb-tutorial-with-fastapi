@@ -1,7 +1,8 @@
+from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
-from fastapi import Cookie, FastAPI, Request, Depends
+from fastapi import Cookie, FastAPI, Form, Request, Depends
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -69,6 +70,40 @@ async def view_post(
     )
 
 
+@app.post("/post/{post_id}/like")
+async def toggle_like(post_id: int, session_id: str | None = Cookie(None)):
+    user_id = activity_service.get_or_create_user(session_id)
+
+    liked, count = activity_service.toggle_like(str(post_id), user_id)
+
+    # htmx用の部分更新レスポンス
+    return f"""
+    <button hx-post="/post/{post_id}/like" 
+            hx-target="this" 
+            hx-swap="outerHTML"
+            class="like-btn {"liked" if liked else ""}">
+        {"❤️" if liked else "🤍"} {count}
+    </button>
+    """
+
+
+@app.post("/post/{post_id}/comment")
+async def add_comment(
+    post_id: int, content: str = Form(...), session_id: Optional[str] = Cookie(None)
+):
+    user_id = activity_service.get_or_create_user(session_id)
+
+    comment = activity_service.add_comment(str(post_id), user_id, content)
+
+    # htmx用の部分更新レスポンス
+    return f"""
+    <div class="comment">
+        <div class="comment-header">{user_id[:8]}... - {datetime.fromtimestamp(comment["timestamp"]).strftime("%Y-%m-%d %H:%M")}</div>
+        <div class="comment-content">{comment["content"]}</div>
+    </div>
+    """
+
+
 @app.get("/activities/feed")
 async def activity_feed(activity_type: str | None = None):
     activities = activity_service.get_recent_activities(activity_type)
@@ -79,3 +114,14 @@ async def activity_feed(activity_type: str | None = None):
             "activities": activities,
         },
     )
+
+
+@app.post("/post/create")
+async def create_post(
+    title: str = Form(...),
+    content: str = Form(...),
+    author: str = Form(...),
+    db: Session = Depends(get_db),
+):
+    post = blog_service.create_post(db, title, content, author)
+    return {"id": post.id, "message": "Post created successfully"}
