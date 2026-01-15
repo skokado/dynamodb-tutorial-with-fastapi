@@ -45,6 +45,30 @@ async def home(
     return response
 
 
+@app.get("/post/{post_id}", response_class=HTMLResponse)
+async def view_post(
+    request: Request,
+    post_id: int,
+    session_id: str | None = Cookie(None),
+    db: Session = Depends(get_db),
+):
+    user_id = activity_service.get_or_create_user(session_id)
+    activity_service.record_view(user_id, str(post_id))
+
+    return templates.TemplateResponse(
+        "post_detail.html",
+        {
+            "request": request,
+            "post": blog_service.get_post(db, post_id),
+            "like_count": activity_service.get_like_count(str(post_id)),
+            "has_liked": activity_service.has_user_likeed(str(post_id), user_id),
+            "comments": activity_service.get_comments(str(post_id)),
+            "activities": activity_service.get_post_activities(str(post_id)),
+            "user_id": user_id,
+        },
+    )
+
+
 @app.get("/activities/feed")
 async def activity_feed(activity_type: str | None = None):
     activities = activity_service.get_recent_activities(activity_type)

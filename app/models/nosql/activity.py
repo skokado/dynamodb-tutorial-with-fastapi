@@ -67,7 +67,7 @@ class Activity:
 
     def list_post_activities(self, post_id: str) -> list[dict]:
         response = self.table.query(
-            IndexName="PostIdIndex",
+            IndexName="PostActivityIndex",
             KeyConditionExpression="post_id = :pid",
             ExpressionAttributeValues={":pid": post_id},
             ScanIndexForward=False,
