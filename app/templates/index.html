@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>📚 DynamoDB Learning Blog</h1>
+
+<div class="container">
+    <div class="main-content">
+        <h2>ブログ投稿</h2>
+        {% for post in posts %}
+        <div class="card post-card" onclick="location.href='/post/{{ post.id }}'">
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.content[:150] }}...</p>
+            <div class="stats">
+                <span>👤 {{ post.author }}</span>
+                <span>📅 {{ post.created_at.strftime('%Y-%m-%d') }}</span>
+            </div>
+        </div>
+        {% endfor %}
+        {% if posts|length == 0 %}
+        <p>投稿がまだありません。</p>
+        {% endif %}
+    </div>
+
+    <div class="sidebar">
+        <h2>🎯 リアルタイムアクティビティ</h2>
+        <div class="activity-feed" hx-get="/activities/feed" hx-trigger="every 5s" hx-swap="innerHTML">
+            {% for activity in recent_activities %}
+            <div class="activity-item">
+                <strong>{{ activity.activity_type }}</strong>
+                <span class="timestamp">{{ activity.user_id[:8] }}...</span>
+                {% if activity.post_id != 'none' %}
+                <br>投稿ID: {{ activity.post_id }}
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <div style="margin-top: 20px;">
+            <button hx-get="/activities/feed?activity_type=view" hx-target=".activity-feed">
+                閲覧履歴
+            </button>
+            <button hx-get="/activities/feed?activity_type=like" hx-target=".activity-feed">
+                いいね
+            </button>
+            <button hx-get="/activities/feed?activity_type=comment" hx-target=".activity-feed">
+                コメント
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}

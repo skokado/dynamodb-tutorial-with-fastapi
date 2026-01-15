@@ -1,6 +1,6 @@
 import os
-
 from dataclasses import dataclass
+from pathlib import Path
 
 
 @dataclass(frozen=True)
@@ -14,7 +14,7 @@ class Config:
 
 
 config = Config(
-    sqlite_db_path="..",
+    sqlite_db_path=(Path(__file__).parent / "db.sqlite3").as_posix(),
     aws_region=os.getenv(
         "AWS_REGION", os.getenv("AWS_DEFAULT_REGION", "ap-northeast-1")
     ),

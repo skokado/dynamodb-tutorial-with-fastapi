@@ -2,6 +2,7 @@ from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, ClassVar
 
 from app.clients import DynamoDBClient
+
 from ._constants import DynamoDBTableName
 
 if TYPE_CHECKING:
@@ -14,15 +15,14 @@ class Like:
 
     table_name: ClassVar[str] = DynamoDBTableName.likes
 
-    client: DynamoDBClient = field(init=False)
+    client: DynamoDBClient = field(default_factory=DynamoDBClient)
     table: Table = field(init=False)
 
     def __post_init__(self) -> None:
-        self.client = DynamoDBClient()
         self.table = self.client.get_table(DynamoDBTableName.likes)
 
-    def toggle_like(self, post_id: int, user_id: str) -> tuple[bool, int]: ...
+    def toggle_like(self, post_id: Str, user_id: str) -> tuple[bool, int]: ...
 
-    def fetch_likes_count(self, post_id: int) -> int: ...
+    def fetch_likes_count(self, post_id: str) -> int: ...
 
-    def has_liked(self, post_id: int, user_id: str) -> bool: ...
+    def has_liked(self, post_id: str, user_id: str) -> bool: ...

@@ -2,6 +2,7 @@ from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, ClassVar
 
 from app.clients import DynamoDBClient
+
 from ._constants import DynamoDBTableName
 
 if TYPE_CHECKING:
@@ -12,11 +13,10 @@ if TYPE_CHECKING:
 class Session:
     table_name: ClassVar[str] = DynamoDBTableName.sessions
 
-    client: DynamoDBClient = field(init=False)
+    client: DynamoDBClient = field(default_factory=DynamoDBClient)
     table: Table = field(init=False)
 
     def __post_init__(self) -> None:
-        self.client = DynamoDBClient()
         self.table = self.client.get_table(DynamoDBTableName.sessions)
 
     def create_session(self, user_id: str) -> str: ...
