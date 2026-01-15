@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2024-01-01T00:00:00.000Z" agent="5.0" etag="dynamodb-structure" version="21.1.2" type="device">
+  <diagram name="DynamoDB-Structure" id="dynamodb-blog-app">
+    <mxGraphModel dx="1434" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Title -->
+        <mxCell id="title-1" value="DynamoDB Learning Blog - データ構造" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="600" y="20" width="400" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- SQLite Section -->
+        <mxCell id="sqlite-group" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="40" y="100" width="300" height="200" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="sqlite-bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;opacity=30;" parent="sqlite-group" vertex="1">
+          <mxGeometry width="300" height="200" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="sqlite-title" value="SQLite (RDB)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" parent="sqlite-group" vertex="1">
+          <mxGeometry x="75" y="10" width="150" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="blog-posts" value="blog_posts" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fontSize=12;fillColor=#fff2cc;strokeColor=#d6b656;" parent="sqlite-group" vertex="1">
+          <mxGeometry x="50" y="50" width="200" height="130" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="bp-1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="blog-posts" vertex="1">
+          <mxGeometry y="30" width="200" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="bp-1-1" value="id (PK)" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;fontStyle=1" parent="bp-1" vertex="1">
+          <mxGeometry width="200" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="bp-2" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="blog-posts" vertex="1">
+          <mxGeometry y="55" width="200" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="bp-2-1" value="title" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" parent="bp-2" vertex="1">
+          <mxGeometry width="200" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="bp-3" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="blog-posts" vertex="1">
+          <mxGeometry y="80" width="200" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="bp-3-1" value="content" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" parent="bp-3" vertex="1">
+          <mxGeometry width="200" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="bp-4" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="blog-posts" vertex="1">
+          <mxGeometry y="105" width="200" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="bp-4-1" value="author, created_at" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" parent="bp-4" vertex="1">
+          <mxGeometry width="200" height="25" as="geometry" />
+        </mxCell>
+        
+        <!-- DynamoDB Tables -->
+        
+        <!-- UserActivities Table -->
+        <mxCell id="activities-group" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="400" y="100" width="350" height="280" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="activities-bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;opacity=30;" parent="activities-group" vertex="1">
+          <mxGeometry width="350" height="280" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="activities-title" value="DynamoDB: UserActivities" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" parent="activities-group" vertex="1">
+          <mxGeometry x="75" y="10" width="200" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="activities-table" value="Primary Key" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fontSize=11;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="activities-group" vertex="1">
+          <mxGeometry x="25" y="45" width="300" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="act-1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="activities-table" vertex="1">
+          <mxGeometry y="30" width="300" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="act-1-1" value="user_id (Partition Key)" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;fontStyle=1" parent="act-1" vertex="1">
+          <mxGeometry width="150" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="act-1-2" value="timestamp (Sort Key)" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;fontStyle=1" parent="act-1" vertex="1">
+          <mxGeometry x="150" width="150" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="act-2" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="activities-table" vertex="1">
+          <mxGeometry y="55" width="300" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="act-2-1" value="activity_type" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" parent="act-2" vertex="1">
+          <mxGeometry width="150" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="act-2-2" value="post_id, metadata" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" parent="act-2" vertex="1">
+          <mxGeometry x="150" width="150" height="25" as="geometry" />
+        </mxCell>
+        
+        <!-- GSI -->
+        <mxCell id="gsi-1" value="GSI: ActivityTypeIndex" style="shape=table;startSize=20;container=1;collapsible=0;childLayout=tableLayout;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" parent="activities-group" vertex="1">
+          <mxGeometry x="25" y="140" width="145" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gsi-1-1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="gsi-1" vertex="1">
+          <mxGeometry y="20" width="145" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="gsi-1-1-1" value="activity_type (PK)" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;fontSize=10;" parent="gsi-1-1" vertex="1">
+          <mxGeometry width="145" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="gsi-1-2" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="gsi-1" vertex="1">
+          <mxGeometry y="40" width="145" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="gsi-1-2-1" value="timestamp (SK)" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;fontSize=10;" parent="gsi-1-2" vertex="1">
+          <mxGeometry width="145" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="gsi-2" value="GSI: PostActivityIndex" style="shape=table;startSize=20;container=1;collapsible=0;childLayout=tableLayout;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" parent="activities-group" vertex="1">
+          <mxGeometry x="180" y="140" width="145" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gsi-2-1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="gsi-2" vertex="1">
+          <mxGeometry y="20" width="145" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="gsi-2-1-1" value="post_id (PK)" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;fontSize=10;" parent="gsi-2-1" vertex="1">
+          <mxGeometry width="145" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="gsi-2-2" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="gsi-2" vertex="1">
+          <mxGeometry y="40" width="145" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="gsi-2-2-1" value="timestamp (SK)" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;fontSize=10;" parent="gsi-2-2" vertex="1">
+          <mxGeometry width="145" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="act-example" value="例: view, like, comment, share" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontStyle=2" parent="activities-group" vertex="1">
+          <mxGeometry x="25" y="210" width="300" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="act-pattern" value="アクセスパターン:\n• ユーザーごとの時系列アクティビティ\n• アクティビティタイプ別の検索\n• 投稿ごとのアクティビティ追跡" style="text;html=1;strokeColor=none;fillColor=#d5e8d4;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;" parent="activities-group" vertex="1">
+          <mxGeometry x="25" y="235" width="300" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- PostLikes Table -->
+        <mxCell id="likes-group" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="800" y="100" width="350" height="180" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="likes-bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;opacity=30;" parent="likes-group" vertex="1">
+          <mxGeometry width="350" height="180" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="likes-title" value="DynamoDB: PostLikes (アトミックカウンター)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" parent="likes-group" vertex="1">
+          <mxGeometry x="50" y="10" width="250" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="likes-table" value="" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fontSize=11;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="likes-group" vertex="1">
+          <mxGeometry x="75" y="45" width="200" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="likes-1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="likes-table" vertex="1">
+          <mxGeometry y="30" width="200" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="likes-1-1" value="post_id (Partition Key)" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;fontStyle=1" parent="likes-1" vertex="1">
+          <mxGeometry width="200" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="likes-2" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="likes-table" vertex="1">
+          <mxGeometry y="55" width="200" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="likes-2-1" value="count, users[]" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" parent="likes-2" vertex="1">
+          <mxGeometry width="200" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="likes-pattern" value="特徴:\n• ADD演算子でアトミックな増減\n• 競合状態の回避\n• いいねしたユーザーリストも管理" style="text;html=1;strokeColor=none;fillColor=#d5e8d4;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;" parent="likes-group" vertex="1">
+          <mxGeometry x="50" y="135" width="250" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Comments Table -->
+        <mxCell id="comments-group" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="1200" y="100" width="350" height="180" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="comments-bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;opacity=30;" parent="comments-group" vertex="1">
+          <mxGeometry width="350" height="180" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="comments-title" value="DynamoDB: Comments (階層データ)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" parent="comments-group" vertex="1">
+          <mxGeometry x="75" y="10" width="200" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="comments-table" value="" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fontSize=11;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="comments-group" vertex="1">
+          <mxGeometry x="50" y="45" width="250" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="comm-1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="comments-table" vertex="1">
+          <mxGeometry y="30" width="250" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="comm-1-1" value="post_id (PK)" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;fontStyle=1" parent="comm-1" vertex="1">
+          <mxGeometry width="125" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="comm-1-2" value="comment_id (SK)" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;fontStyle=1" parent="comm-1" vertex="1">
+          <mxGeometry x="125" width="125" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="comm-2" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="comments-table" vertex="1">
+          <mxGeometry y="55" width="250" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="comm-2-1" value="user_id, content, timestamp, parent_id, replies[]" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" parent="comm-2" vertex="1">
+          <mxGeometry width="250" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="comm-pattern" value="特徴:\n• 階層構造（parent_id, replies）\n• 投稿ごとのコメントを効率的に取得\n• スレッド形式のディスカッション対応" style="text;html=1;strokeColor=none;fillColor=#d5e8d4;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;" parent="comments-group" vertex="1">
+          <mxGeometry x="50" y="135" width="250" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- UserSessions Table -->
+        <mxCell id="sessions-group" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="600" y="420" width="400" height="180" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="sessions-bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;opacity=30;" parent="sessions-group" vertex="1">
+          <mxGeometry width="400" height="180" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="sessions-title" value="DynamoDB: UserSessions (TTL付き)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" parent="sessions-group" vertex="1">
+          <mxGeometry x="100" y="10" width="200" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="sessions-table" value="" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fontSize=11;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="sessions-group" vertex="1">
+          <mxGeometry x="75" y="45" width="250" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="sess-1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="sessions-table" vertex="1">
+          <mxGeometry y="30" width="250" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="sess-1-1" value="session_id (Partition Key)" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;fontStyle=1" parent="sess-1" vertex="1">
+          <mxGeometry width="250" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="sess-2" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="sessions-table" vertex="1">
+          <mxGeometry y="55" width="250" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="sess-2-1" value="user_id, created_at, ttl, last_activity" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;" parent="sess-2" vertex="1">
+          <mxGeometry width="250" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="sess-pattern" value="特徴:\n• TTL（Time To Live）で自動削除\n• セッション管理の自動化\n• メモリ効率的な一時データ管理" style="text;html=1;strokeColor=none;fillColor=#d5e8d4;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;" parent="sessions-group" vertex="1">
+          <mxGeometry x="75" y="135" width="250" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrows and Relationships -->
+        <mxCell id="arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#666666;dashed=1;" parent="1" source="blog-posts" target="activities-table" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="375" y="200"/>
+              <mxPoint x="375" y="160"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow1-label" value="post_id で関連" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" parent="arrow1" vertex="1" connectable="0">
+          <mxGeometry x="-0.1" y="-15" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#666666;dashed=1;" parent="1" source="blog-posts" target="likes-table" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="240" y="320"/>
+              <mxPoint x="975" y="320"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#666666;dashed=1;" parent="1" source="blog-posts" target="comments-table" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="240" y="340"/>
+              <mxPoint x="1425" y="340"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Legend -->
+        <mxCell id="legend-group" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="40" y="650" width="1510" height="200" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;strokeWidth=1;" parent="legend-group" vertex="1">
+          <mxGeometry width="1510" height="200" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend-title" value="DynamoDB設計パターンと学習ポイント" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" parent="legend-group" vertex="1">
+          <mxGeometry x="605" y="10" width="300" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="pattern1" value="1. 時系列データパターン\nUserActivities:\n• PK: user_id\n• SK: timestamp\n• 効率的な範囲検索" style="text;html=1;strokeColor=none;fillColor=#dae8fc;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=10;strokeColor=#6c8ebf;" parent="legend-group" vertex="1">
+          <mxGeometry x="20" y="50" width="180" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="pattern2" value="2. GSIによる複数アクセスパターン\nActivityTypeIndex:\n• タイプ別検索\nPostActivityIndex:\n• 投稿別アクティビティ" style="text;html=1;strokeColor=none;fillColor=#dae8fc;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=10;strokeColor=#6c8ebf;" parent="legend-group" vertex="1">
+          <mxGeometry x="220" y="50" width="180" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="pattern3" value="3. アトミックカウンター\nPostLikes:\n• ADD演算子\n• 競合状態回避\n• 高頻度更新対応" style="text;html=1;strokeColor=none;fillColor=#dae8fc;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=10;strokeColor=#6c8ebf;" parent="legend-group" vertex="1">
+          <mxGeometry x="420" y="50" width="180" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="pattern4" value="4. 階層データ構造\nComments:\n• parent_id\n• replies配列\n• スレッド形式" style="text;html=1;strokeColor=none;fillColor=#dae8fc;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=10;strokeColor=#6c8ebf;" parent="legend-group" vertex="1">
+          <mxGeometry x="620" y="50" width="180" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="pattern5" value="5. TTL自動削除\nUserSessions:\n• 24時間後自動削除\n• メモリ効率化\n• 管理コスト削減" style="text;html=1;strokeColor=none;fillColor=#dae8fc;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=10;strokeColor=#6c8ebf;" parent="legend-group" vertex="1">
+          <mxGeometry x="820" y="50" width="180" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="benefit1" value="メリット:\n• 水平スケーリング\n• ミリ秒レイテンシー\n• 柔軟なスキーマ" style="text;html=1;strokeColor=none;fillColor=#d5e8d4;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=10;strokeColor=#82b366;" parent="legend-group" vertex="1">
+          <mxGeometry x="1020" y="50" width="150" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="benefit2" value="ユースケース:\n• リアルタイムデータ\n• セッション管理\n• IoTデータ収集" style="text;html=1;strokeColor=none;fillColor=#ffe6cc;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=10;strokeColor=#d79b00;" parent="legend-group" vertex="1">
+          <mxGeometry x="1190" y="50" width="150" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="benefit3" value="RDBとの使い分け:\n構造化データ → RDB\n時系列/非構造化 → DynamoDB" style="text;html=1;strokeColor=none;fillColor=#f8cecc;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=10;strokeColor=#b85450;" parent="legend-group" vertex="1">
+          <mxGeometry x="1360" y="50" width="130" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="note" value="注: 破線はデータの関連性を示す（外部キー制約ではない）" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontStyle=2" parent="legend-group" vertex="1">
+          <mxGeometry x="20" y="140" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="key-concept" value="重要概念: Single Table Design も可能だが、このサンプルでは学習しやすさのため複数テーブルで実装" style="text;html=1;strokeColor=none;fillColor=#fff2cc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=11;fontStyle=1;strokeColor=#d6b656;" parent="legend-group" vertex="1">
+          <mxGeometry x="500" y="140" width="510" height="30" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
