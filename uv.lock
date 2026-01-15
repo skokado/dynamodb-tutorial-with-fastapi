@@ -132,9 +132,10 @@ wheels = [
 [[package]]
 name = "dynamodb-tutorial-with-fastapi"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "boto3" },
+    { name = "click" },
     { name = "fastapi", extra = ["standard"] },
     { name = "jinja2" },
     { name = "pydantic-settings" },
@@ -152,6 +153,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "boto3", specifier = ">=1.42.26" },
+    { name = "click", specifier = ">=8.3.1" },
     { name = "fastapi", extras = ["standard"], specifier = ">=0.128.0" },
     { name = "jinja2", specifier = ">=3.1.6" },
     { name = "pydantic-settings", specifier = ">=2.12.0" },

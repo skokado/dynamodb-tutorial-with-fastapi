@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+import os
 from typing import TYPE_CHECKING
 
 import boto3
@@ -19,6 +20,8 @@ class DynamoDBClient:
             "dynamodb",
             endpoint_url=config.aws_endpoint_url,
             region_name=config.aws_region,
+            aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID", "localOnly"),
+            aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY", "localOnly"),
         )
         # https://stackoverflow.com/a/54119384
         object.__setattr__(

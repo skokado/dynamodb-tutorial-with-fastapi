@@ -4,3 +4,12 @@ services:
     ports:
       - "4566:8000"
     command: "-jar DynamoDBLocal.jar -sharedDb -inMemory"
+
+  dynamodb-admin:
+    image: aaronshaf/dynamodb-admin:latest
+    ports:
+      - "4567:8001"
+    environment:
+      - DYNAMO_ENDPOINT=http://dynamodb-local:8000
+      - AWS_ACCESS_KEY_ID=local_access_key_id
+      - AWS_SECRET_ACCESS_KEY=local_secret_access_key

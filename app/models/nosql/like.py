@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, ClassVar
 
 from app.clients import DynamoDBClient
 from ._constants import DynamoDBTableName
@@ -10,6 +10,10 @@ if TYPE_CHECKING:
 
 @dataclass
 class Like:
+    """いいねカウンターテーブル（アトミックカウンター）"""
+
+    table_name: ClassVar[str] = DynamoDBTableName.likes
+
     client: DynamoDBClient = field(init=False)
     table: Table = field(init=False)
 
