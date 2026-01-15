@@ -1,0 +1,40 @@
+[project]
+name = "dynamodb-tutorial-with-fastapi"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "anydi>=0.67.2",
+    "boto3>=1.42.26",
+    "click>=8.3.1",
+    "fastapi[standard]>=0.128.0",
+    "jinja2>=3.1.6",
+    "pydantic-settings>=2.12.0",
+    "python-multipart>=0.0.21",
+    "sqlalchemy>=2.0.45",
+    "uvicorn[standard]>=0.40.0",
+]
+
+[dependency-groups]
+dev = [
+    "boto3-stubs[dynamodb]>=1.42.28",
+    "ruff>=0.14.11",
+]
+
+[tool.ruff.format]
+# Like Black, use double quotes for strings.
+quote-style = "double"
+
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
+
+
+[tool.ruff.lint]
+extend-select = ["I"]

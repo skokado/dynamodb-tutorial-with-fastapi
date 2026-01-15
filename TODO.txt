@@ -1,0 +1,2 @@
+- Cookie を正しくセットできていない
+- DynamoDB テーブル（= モデル）の定義とロジックを分けたい (`models/nosql/*.py`)

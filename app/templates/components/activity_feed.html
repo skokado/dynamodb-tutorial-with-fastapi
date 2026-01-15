@@ -1,0 +1,34 @@
+{% for activity in activities %}
+<div class="activity-item">
+    <strong>
+        {% if activity.activity_type == 'view' %}
+        👁️ 閲覧
+        {% elif activity.activity_type == 'like' %}
+        ❤️ いいね
+        {% elif activity.activity_type == 'comment' %}
+        💬 コメント
+        {% else %}
+        {{ activity.activity_type }}
+        {% endif %}
+    </strong>
+    <br>
+    <span class="timestamp">
+        User: {{ activity.user_id[:8] }}...
+        {% if activity.post_id != 'none' %}
+        | Post: {{ activity.post_id }}
+        {% endif %}
+    </span>
+    {% if activity.metadata %}
+    <br>
+    <small style="color: #999;">
+        {{ activity.metadata }}
+    </small>
+    {% endif %}
+</div>
+{% endfor %}
+
+{% if not activities %}
+<div class="activity-item">
+    <span style="color: #999;">アクティビティがありません</span>
+</div>
+{% endif %}

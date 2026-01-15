@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>📖 {{ post.title }}</h1>
+
+<div class="container">
+    <div class="main-content">
+        <div class="card">
+            <div class="stats">
+                <span>👤 {{ post.author }}</span>
+                <span>📅 {{ post.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
+            </div>
+
+            <div style="margin: 20px 0; line-height: 1.8;">
+                {{ post.content }}
+            </div>
+
+            <div style="margin: 20px 0;">
+                <button hx-post="/post/{{ post.id }}/like" hx-target="this" hx-swap="outerHTML"
+                    class="like-btn {{ 'liked' if has_liked else '' }}">
+                    {{ '❤️' if has_liked else '🤍' }} {{ like_count }}
+                </button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>💬 コメント</h3>
+
+            <form hx-post="/post/{{ post.id }}/comment" hx-target="#comments" hx-swap="beforeend">
+                <textarea name="content" placeholder="コメントを入力..."
+                    style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" required></textarea>
+                <button type="submit"
+                    style="margin-top: 10px; padding: 8px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    コメント投稿
+                </button>
+            </form>
+
+            <div id="comments" style="margin-top: 20px;">
+                {% for comment in comments %}
+                <div class="comment">
+                    <div class="comment-header">
+                        {{ comment.user_id[:8] }}... -
+                        {{ comment.timestamp }}
+                    </div>
+                    <div class="comment-content">{{ comment.content }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <div class="card">
+            <h3>📊 この投稿のアクティビティ</h3>
+            <div class="activity-feed">
+                {% for activity in activities %}
+                <div class="activity-item">
+                    <strong>{{ activity.activity_type }}</strong>
+                    <br>
+                    <span class="timestamp">
+                        User: {{ activity.user_id[:8] }}...
+                    </span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="card" style="margin-top: 20px;">
+            <h3>📈 統計情報</h3>
+            <p>👁️ 閲覧数: {{ activities|length }}</p>
+            <p>❤️ いいね: {{ like_count }}</p>
+            <p>💬 コメント: {{ comments|length }}</p>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <a href="/" style="text-decoration: none; color: #007bff;">← ホームに戻る</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
