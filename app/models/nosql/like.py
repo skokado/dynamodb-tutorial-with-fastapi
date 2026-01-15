@@ -21,8 +21,38 @@ class Like:
     def __post_init__(self) -> None:
         self.table = self.client.get_table(DynamoDBTableName.likes)
 
-    def toggle_like(self, post_id: Str, user_id: str) -> tuple[bool, int]: ...
+    def toggle_like(self, post_id: str, user_id: str) -> tuple[bool, int]:
+        response = self.table.get_item(Key={"post_id": post_id})
+        item = response.get("Item", {"post_id": post_id, "count": 0, "users": []})
+        users = item.get("users", [])
+        if user_id in users:
+            # いいね解除
+            users.remove(user_id)
+            response = self.table.update_item(
+                Key={"post_id": post_id},
+                UpdateExpression="ADD #count :dec SET users = :users",
+                ExpressionAttributeNames={"#count": "count"},
+                ExpressionAttributeValues={":dec": -1, ":users": users},
+                ReturnValues="ALL_NEW",
+            )
+            return False, response["Attributes"]["count"]
 
-    def fetch_likes_count(self, post_id: str) -> int: ...
+        # いいね追加
+        users.append(user_id)
+        response = self.table.update_item(
+            Key={"post_id": post_id},
+            UpdateExpression="ADD #count :inc SET users = :users",
+            ExpressionAttributeNames={"#count": "count"},
+            ExpressionAttributeValues={":inc": 1, ":users": users},
+            ReturnValues="ALL_NEW",
+        )
+        return True, response["Attributes"]["count"]
 
-    def has_liked(self, post_id: str, user_id: str) -> bool: ...
+    def fetch_likes_count(self, post_id: str) -> int:
+        response = self.table.get_item(Key={"post_id": post_id})
+        return response.get("Item", {}).get("count", 0)
+
+    def has_liked(self, post_id: str, user_id: str) -> bool:
+        response = self.table.get_item(Key={"post_id": post_id})
+        users = response.get("Item", {}).get("users", [])
+        return user_id in users
