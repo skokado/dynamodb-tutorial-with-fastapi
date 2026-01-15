@@ -1,15 +1,41 @@
 services:
-  dynamodb-local:
+
+  # ref. https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html
+  dynamodb:
+    # https://hub.docker.com/r/amazon/dynamodb-local
     image: amazon/dynamodb-local:3.2.0
     ports:
       - "4566:8000"
-    command: "-jar DynamoDBLocal.jar -sharedDb -inMemory"
+    user: root # data ディレクトリの所有者が root ユーザーになるため
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    volumes:
+      - ".docker/dynamodb:/home/dynamodblocal/data"
 
   dynamodb-admin:
     image: aaronshaf/dynamodb-admin:latest
     ports:
       - "4567:8001"
     environment:
-      - DYNAMO_ENDPOINT=http://dynamodb-local:8000
+      - DYNAMO_ENDPOINT=http://dynamodb:8000
       - AWS_ACCESS_KEY_ID=local_access_key_id
       - AWS_SECRET_ACCESS_KEY=local_secret_access_key
+    depends_on:
+      - dynamodb
+
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    command: python -m fastapi dev --host 0.0.0.0 --entrypoint app.main:app
+    environment:
+      - AWS_ENDPOINT_URL=http://dynamodb:8000
+      - AWS_ACCESS_KEY_ID=localAccessKey
+      - AWS_SECRET_ACCESS_KEY=localSecretKey
+    depends_on:
+      - dynamodb
+
+    volumes:
+      - app_db:/opt/app/data/
+
+volumes:
+  app_db:

@@ -14,7 +14,7 @@ class Config:
 
 
 config = Config(
-    sqlite_db_path=(Path(__file__).parent / "db.sqlite3").as_posix(),
+    sqlite_db_path=(Path(__file__).parent / "data/db.sqlite3").as_posix(),
     aws_region=os.getenv(
         "AWS_REGION", os.getenv("AWS_DEFAULT_REGION", "ap-northeast-1")
     ),
