@@ -1,0 +1,28 @@
+from dataclasses import dataclass, field
+from typing import TYPE_CHECKING
+
+from app.clients import DynamoDBClient
+from ._constants import DynamoDBTableName
+
+if TYPE_CHECKING:
+    from mypy_boto3_dynamodb.service_resource import Table
+
+
+@dataclass
+class Comment:
+    client: DynamoDBClient = field(init=False)
+    table: Table = field(init=False)
+
+    def __post_init__(self) -> None:
+        self.client = DynamoDBClient()
+        self.table = self.client.get_table(DynamoDBTableName.comments)
+
+    def add_comment(
+        self,
+        post_id: int,
+        user_id: str,
+        content: str,
+        parent_comment_id: int | None = None,
+    ) -> dict: ...
+
+    def fetch_comments(self, post_id: int) -> list[dict]: ...
