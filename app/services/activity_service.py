@@ -14,14 +14,14 @@ class ActivityService:
     like_model: LikeModel = field(default_factory=LikeModel)
     session_model: SessionModel = field(default_factory=SessionModel)
 
-    def get_or_create_user(self, session_id: str | None = None) -> str:
+    def get_or_create_user(self, session_id: str) -> str:
         if session_id and (session := self.session_model.get_session(session_id)):
             self.session_model.update_activity(session_id)
             return session["user_id"]
 
         # 新規ユーザー作成
         user_id = "user_" + uuid4().hex[:32]
-        self.session_model.create_session(user_id)
+        self.session_model.create_session(user_id, session_id)
         return user_id
 
     def record_view(self, user_id: str, post_id: str) -> None:

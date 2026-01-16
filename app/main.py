@@ -1,8 +1,9 @@
+import secrets
 from datetime import datetime
 from pathlib import Path
-from typing import Optional
+from typing import Annotated
 
-from fastapi import Cookie, FastAPI, Form, Request, Depends
+from fastapi import Cookie, Depends, FastAPI, Form, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -26,9 +27,12 @@ blog_service = BlogService()
 @app.get("/", response_class=HTMLResponse)
 async def home(
     request: Request,
-    session_id: Optional[str] = Cookie(None),
+    session_id: Annotated[str | None, Cookie()] = None,
     db: Session = Depends(get_db),
 ):
+    if new_user := session_id is None:
+        session_id = generate_session_id()
+
     user_id = activity_service.get_or_create_user(session_id)
     posts = blog_service.list_posts(db)
 
@@ -43,20 +47,29 @@ async def home(
             "user_id": user_id,
         },
     )
+    if new_user:
+        response.set_cookie(key="session_id", value=session_id, httponly=True)
     return response
+
+
+def generate_session_id() -> str:
+    return "sess_" + secrets.token_hex(128)
 
 
 @app.get("/post/{post_id}", response_class=HTMLResponse)
 async def view_post(
     request: Request,
     post_id: int,
-    session_id: str | None = Cookie(None),
+    session_id: Annotated[str | None, Cookie()] = None,
     db: Session = Depends(get_db),
 ):
+    if new_user := session_id is None:
+        session_id = generate_session_id()
+
     user_id = activity_service.get_or_create_user(session_id)
     activity_service.record_view(user_id, str(post_id))
 
-    return templates.TemplateResponse(
+    response = templates.TemplateResponse(
         "post_detail.html",
         {
             "request": request,
@@ -68,10 +81,17 @@ async def view_post(
             "user_id": user_id,
         },
     )
+    if new_user:
+        response.set_cookie(key="session_id", value=session_id, httponly=True)
+
+    return response
 
 
 @app.post("/post/{post_id}/like")
-async def toggle_like(post_id: int, session_id: str | None = Cookie(None)):
+async def toggle_like(post_id: int, session_id: Annotated[str | None, Cookie()] = None):
+    if not session_id:
+        return
+
     user_id = activity_service.get_or_create_user(session_id)
 
     liked, count = activity_service.toggle_like(str(post_id), user_id)
@@ -89,8 +109,13 @@ async def toggle_like(post_id: int, session_id: str | None = Cookie(None)):
 
 @app.post("/post/{post_id}/comment")
 async def add_comment(
-    post_id: int, content: str = Form(...), session_id: Optional[str] = Cookie(None)
+    post_id: int,
+    content: str = Form(...),
+    session_id: Annotated[str | None, Cookie()] = None,
 ):
+    if not session_id:
+        return
+
     user_id = activity_service.get_or_create_user(session_id)
 
     comment = activity_service.add_comment(str(post_id), user_id, content)

@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from datetime import datetime, timezone
 from typing import TYPE_CHECKING, ClassVar
 
 from app.clients import DynamoDBClient
@@ -19,8 +20,32 @@ class Session:
     def __post_init__(self) -> None:
         self.table = self.client.get_table(DynamoDBTableName.sessions)
 
-    def create_session(self, user_id: str) -> str: ...
+    def create_session(
+        self, user_id: str, session_id: str, ttl_seconds: int = 60 * 60
+    ) -> str:
+        now = datetime.now(timezone.utc)
+        ttl = int(now.timestamp()) + ttl_seconds
 
-    def get_session(self, session_id: str) -> dict | None: ...
+        self.table.put_item(
+            Item={
+                "session_id": session_id,
+                "user_id": user_id,
+                "created_at": int(now.timestamp()),
+                "ttl": ttl,
+                "last_activity": int(now.timestamp()),
+            }
+        )
+        return session_id
 
-    def update_activity(self, session_id: str) -> None: ...
+    def get_session(self, session_id: str) -> dict | None:
+        response = self.table.get_item(Key={"session_id": session_id})
+        return response.get("Item")
+
+    def update_activity(self, session_id: str) -> None:
+        self.table.update_item(
+            Key={"session_id": session_id},
+            UpdateExpression="SET last_activity = :now",
+            ExpressionAttributeValues={
+                ":now": int(datetime.now(timezone.utc).timestamp())
+            },
+        )
