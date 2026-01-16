@@ -1,7 +1,7 @@
 import secrets
 from datetime import datetime
 from pathlib import Path
-from typing import Annotated, Optional
+from typing import Annotated
 
 from fastapi import Cookie, Depends, FastAPI, Form, Request
 from fastapi.responses import HTMLResponse
